@@ -28,6 +28,7 @@ const calcBoxDiv=document.getElementById("calcBox");
                 array[i].push(new Node())
             }
         }
+        console.log(array)
     }
 }
 
