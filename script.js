@@ -61,4 +61,4 @@ const calcBoxDiv=document.getElementById("calcBox");
 }
     
     let grid= new Grid
-    grid.makeGrid(5,5)
+    grid.makeGrid(9,9)
