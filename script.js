@@ -11,7 +11,9 @@ const calcBoxDiv=document.getElementById("calcBox");
  }
 
   class Node{
-
+     constructor(type){
+        this.type=type
+     }
  }
 
  class Grid{
@@ -24,8 +26,15 @@ const calcBoxDiv=document.getElementById("calcBox");
         var array=[]
         for(let i=0;i<height;i++){
             array.push([])
+            let tableRow=document.createElement("tr")
+            tableRow.id="Row "+i
+            gridDiv.appendChild(tableRow)
             for (let j=0;j<width;j++){
-                array[i].push(new Node())
+                array[i].push(new Node("normal"))
+                let tableData= document.createElement("td")
+                tableData.id="Row-"+i+" Data-"+j
+                tableRow.appendChild(tableData)
+                tableData.innerHTML="<img src='whitesquare.png' style='height:50px;width:50px'>"
             }
         }
         console.log(array)
@@ -33,4 +42,4 @@ const calcBoxDiv=document.getElementById("calcBox");
 }
     
     let grid= new Grid
-    grid.makeGrid(3,4)
+    grid.makeGrid(6,7)
