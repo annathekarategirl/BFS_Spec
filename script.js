@@ -31,7 +31,7 @@ const sizeSub=document.getElementById("sizesub")
         this.type="start"
      }
      setGoal(){this.type="goal"
-        this.tableData.setColor("red")
+        this.setColor("red")
      }
  }
 
@@ -90,5 +90,5 @@ const sizeSub=document.getElementById("sizesub")
     
     let grid= new Grid
 grid.makeGrid(6,8)
-console.log(grid.array)
-goalSub.addEventListener('click', grid.goalNode)
+
+goalSub.addEventListener('click', () => {grid.goalNode()})
