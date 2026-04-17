@@ -1,6 +1,9 @@
 const gridDiv=document.getElementById('grid');
 const calcBoxDiv=document.getElementById("calcBox");
-
+const startInput=document.getElementById("start");
+const goalInput=document.getElementById("goal");
+const heightInput=document.getElementById("height");
+const widthInput=document.getElementById("width");
 
  class Algorithm{
     //Abstract class
@@ -19,6 +22,10 @@ const calcBoxDiv=document.getElementById("calcBox");
      setColor(hue){
         this.tableData.style.backgroundColor=hue
      }
+     setStart(){
+        this.type="start"
+     }
+     setGoal(){this.type="goal"}
  }
 
  class Grid{
