@@ -8,15 +8,14 @@ const goalY=document.getElementById("goaly");
 const goalSub=document.getElementById("goalsub")
 const heightInput=document.getElementById("height");
 const widthInput=document.getElementById("width");
-const sizeSub=document.getElementById("sizesub")
+const sizeSub=document.getElementById("sizesub");
+const calcButton=document.getElementById("calc")
 
  class Algorithm{
     //Abstract class
  }
 
- class BFS extends Algorithm{
 
- }
 
   class Node{
      constructor(type, tableData, coordinates){
@@ -105,10 +104,34 @@ const sizeSub=document.getElementById("sizesub")
         }
         this.array[startY.value][startX.value].setStart()
     }
+    changeSize(){
+        this.makeGrid(heightInput.value,widthInput.value)
+        console.log("test")
+        //appends instead but do later
+    }
 }
+
+ class BFS extends Algorithm{
+    calculate(){
+
+    let queue=[]
+    for(let i=0;i<grid.array.length;i++){
+            for(let j=0;j<grid.array[i].length;j++){
+                if (grid.array[i][j].type=="start"){
+                    let startObject=grid.array[i][j]
+                }
+                if (grid.array[i][j].type=="goal"){
+                    let goalObject=grid.array[i][j]
+                }
+            }
+
+    }
+ }}
+
     
     let grid= new Grid
 grid.makeGrid(6,8)
 
 goalSub.addEventListener('click', () => {grid.goalNode()})
 startSub.addEventListener("click",() => {grid.startNode()})
+sizeSub.addEventListener("click",() =>{grid.changeSize()})
