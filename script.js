@@ -33,6 +33,10 @@ const sizeSub=document.getElementById("sizesub")
      setGoal(){this.type="goal"
         this.setColor("red")
      }
+     setStart(){
+        this.type="start"
+        this.setColor("purple")
+     }
  }
 
  class Grid{
@@ -80,11 +84,10 @@ const sizeSub=document.getElementById("sizesub")
         
     }
     goalNode(){
-        console.log("test")
-        console.log(goalY.value)
-        console.log(goalX.value)
-        console.log(this.array)
         this.array[goalY.value][goalX.value].setGoal()
+    }
+    startNode(){
+        this.array[startY.value][startX.value].setStart()
     }
 }
     
@@ -92,3 +95,4 @@ const sizeSub=document.getElementById("sizesub")
 grid.makeGrid(6,8)
 
 goalSub.addEventListener('click', () => {grid.goalNode()})
+startSub.addEventListener("click",() => {grid.startNode()})
