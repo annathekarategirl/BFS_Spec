@@ -1,9 +1,14 @@
 const gridDiv=document.getElementById('grid');
 const calcBoxDiv=document.getElementById("calcBox");
-const startInput=document.getElementById("start");
-const goalInput=document.getElementById("goal");
+const startX=document.getElementById("startx");
+const startY=document.getElementById("starty");
+const startSub=document.getElementById("startsub")
+const goalX=document.getElementById("goalx");
+const goalY=document.getElementById("goaly");
+const goalSub=document.getElementById("goalsub")
 const heightInput=document.getElementById("height");
 const widthInput=document.getElementById("width");
+const sizeSub=document.getElementById("sizesub")
 
  class Algorithm{
     //Abstract class
@@ -25,17 +30,22 @@ const widthInput=document.getElementById("width");
      setStart(){
         this.type="start"
      }
-     setGoal(){this.type="goal"}
+     setGoal(){this.type="goal"
+        this.tableData.setColor("red")
+     }
  }
 
  class Grid{
-    constructor()//height,width)
+    constructor(height,width)
     {
-        // this.height=height
-        // this.width=width
+        this.height=height
+        this.width=width
+        this.array=[]
     } 
     makeGrid(height,width){
         var array=[]
+        this.height=height
+        this.width=width
         for(let i=0;i<height;i++){
             array.push([])
             let tableRow=document.createElement("tr")
@@ -56,16 +66,29 @@ const widthInput=document.getElementById("width");
                         
                     }
                 
-                    else if (array[i][j].type=="wall")
-                            {array[i][j].type='normal';
-                            array[i][j].setColor("white")}
+                    else if (array[i][j].type=="wall") {
+                            array[i][j].type='normal';
+                            array[i][j].setColor("white")
+                        }
                     else{console.log("test")};})
             }
         }
         
-        console.log(array)
+        //console.log(array)
+        this.array=array
+        return array
+        
+    }
+    goalNode(){
+        console.log("test")
+        console.log(goalY.value)
+        console.log(goalX.value)
+        console.log(this.array)
+        this.array[goalY.value][goalX.value].setGoal()
     }
 }
     
     let grid= new Grid
-    grid.makeGrid(9,9)
+grid.makeGrid(6,8)
+console.log(grid.array)
+goalSub.addEventListener('click', grid.goalNode)
