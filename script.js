@@ -84,9 +84,25 @@ const sizeSub=document.getElementById("sizesub")
         
     }
     goalNode(){
+        for(let i=0;i<this.array.length;i++){
+            for(let j=0;j<this.array[i].length;j++){
+                if (this.array[i][j].type=="goal"){
+                    this.array[i][j].type="normal"
+                    this.array[i][j].setColor('white')
+                }
+            }
+        }
         this.array[goalY.value][goalX.value].setGoal()
     }
     startNode(){
+        for(let i=0;i<this.array.length;i++){
+            for(let j=0;j<this.array[i].length;j++){
+                if (this.array[i][j].type=="start"){
+                    this.array[i][j].type="normal"
+                    this.array[i][j].setColor('white')
+                }
+            }
+        }
         this.array[startY.value][startX.value].setStart()
     }
 }
