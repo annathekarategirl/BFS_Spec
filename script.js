@@ -135,3 +135,4 @@ grid.makeGrid(6,8)
 goalSub.addEventListener('click', () => {grid.goalNode()})
 startSub.addEventListener("click",() => {grid.startNode()})
 sizeSub.addEventListener("click",() =>{grid.changeSize()})
+calcButton.addEventListener("click",() =>{grid.c}) //how to apply a function from one calss to another class
