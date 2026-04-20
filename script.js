@@ -18,10 +18,11 @@ const calcButton=document.getElementById("calc")
 
 
   class Node{
-     constructor(type, tableData, coordinates){
+     constructor(type, tableData, coordinates,neighbors){
         this.type=type
         this.tableData=tableData
         this.coordinates=coordinates
+        this.neighbors=neighbors
      }
      setColor(hue){
         this.tableData.style.backgroundColor=hue
@@ -36,7 +37,17 @@ const calcButton=document.getElementById("calc")
         this.type="start"
         this.setColor("purple")
      }
- }
+     cleanNeighbors(){
+        console.log(grid.height,grid.width)
+        for(let i=0;i<=this.neighbors.length;i++){
+            if (this.neighbors[i][0]<0 || this.neighbors[i][1]<0 ||this.neighbors[i][0]>grid.height || this.neighbors[i][1]>grid.width){
+                this.neighbors.splice(i,1)
+                //console.log(this.neighbors)
+                //console.log("kg")
+            // }else{console.log(this.neighbors[i])}
+        }
+     } console.log(this.neighbors)
+ }}
 
  class Grid{
     constructor(height,width)
@@ -49,13 +60,20 @@ const calcButton=document.getElementById("calc")
         var array=[]
         this.height=height
         this.width=width
+        this.array=[]
+        gridDiv.innerHTML=""
         for(let i=0;i<height;i++){
             array.push([])
             let tableRow=document.createElement("tr")
             tableRow.id="Row "+i
             gridDiv.appendChild(tableRow)
             for (let j=0;j<width;j++){
-                array[i].push(new Node("normal",document.createElement("td"),[i,j]))
+                let iminusone=i-1
+                let jminusone=j-1
+                let iplusone=i+1
+                let jplusone=j+1
+                array[i].push(new Node("normal",document.createElement("td"),[i,j],[[iplusone,j],[iminusone,j],[i,jplusone],[i,jminusone]]))
+                //console.log(array[i][j].neighbors)
                 array[i][j].tableData.id="Row-"+i+" Data-"+j
                 tableRow.appendChild(array[i][j].tableData)
                 array[i][j].tableData.style="border: 1px solid black;padding:40px"
@@ -113,26 +131,36 @@ const calcButton=document.getElementById("calc")
 
  class BFS extends Algorithm{
     calculate(){
-
-    let queue=[]
-    for(let i=0;i<grid.array.length;i++){
-            for(let j=0;j<grid.array[i].length;j++){
-                if (grid.array[i][j].type=="start"){
-                    let startObject=grid.array[i][j]
-                }
-                if (grid.array[i][j].type=="goal"){
-                    let goalObject=grid.array[i][j]
-                }
+        let current
+        let queue=[]
+        //acccess start and goal object
+        for(let i=0;i<grid.array.length;i++){
+                for(let j=0;j<grid.array[i].length;j++){
+                    if (grid.array[i][j].type=="start"){
+                        
+                        var startObject=grid.array[i][j]
+                    }
+                    if (grid.array[i][j].type=="goal"){
+                        var goalObject=grid.array[i][j]
+                        
+                    }
+                }   
             }
+        //push start to queue
+        queue.push(startObject)
+        current=queue.shift()
+        
 
-    }
+        //access neighbors
  }}
-
+let bfsObject = new BFS()
     
-    let grid= new Grid
+let grid= new Grid()
 grid.makeGrid(6,8)
 
 goalSub.addEventListener('click', () => {grid.goalNode()})
 startSub.addEventListener("click",() => {grid.startNode()})
 sizeSub.addEventListener("click",() =>{grid.changeSize()})
-calcButton.addEventListener("click",() =>{grid.c}) //how to apply a function from one calss to another class
+calcButton.addEventListener("click",() =>{bfsObject.calculate()})
+console.log(grid.array[0][1].neighbors)
+grid.array[0][1].cleanNeighbors()
