@@ -38,15 +38,23 @@ const calcButton=document.getElementById("calc")
         this.setColor("purple")
      }
      cleanNeighbors(){
-        console.log(grid.height,grid.width)
-        for(let i=0;i<=this.neighbors.length;i++){
+        let removables=[]
+        for(let i=0;i<this.neighbors.length;i++){
+            // if (this.neighbors[i][0]<0){
+            //     this.neighbors.splice(i,1)
+           
+            //console.log(this.neighbors)
             if (this.neighbors[i][0]<0 || this.neighbors[i][1]<0 ||this.neighbors[i][0]>grid.height || this.neighbors[i][1]>grid.width){
-                this.neighbors.splice(i,1)
-                //console.log(this.neighbors)
-                //console.log("kg")
-            // }else{console.log(this.neighbors[i])}
-        }
-     } console.log(this.neighbors)
+                //this.neighbors.splice(i,1)
+                removables.push(this.neighbors[i])
+            }
+        } 
+         console.log(this.coordinates)
+        console.log("Before:",this.neighbors)
+        console.log("Remove:",removables)
+       let res = [].concat(this.neighbors.filter(x => !removables.includes(x)));
+       this.neighbors=res
+        console.log("After:",this.neighbors)
  }}
 
  class Grid{
@@ -73,6 +81,7 @@ const calcButton=document.getElementById("calc")
                 let iplusone=i+1
                 let jplusone=j+1
                 array[i].push(new Node("normal",document.createElement("td"),[i,j],[[iplusone,j],[iminusone,j],[i,jplusone],[i,jminusone]]))
+                array[i][j].cleanNeighbors()
                 //console.log(array[i][j].neighbors)
                 array[i][j].tableData.id="Row-"+i+" Data-"+j
                 tableRow.appendChild(array[i][j].tableData)
@@ -162,5 +171,4 @@ goalSub.addEventListener('click', () => {grid.goalNode()})
 startSub.addEventListener("click",() => {grid.startNode()})
 sizeSub.addEventListener("click",() =>{grid.changeSize()})
 calcButton.addEventListener("click",() =>{bfsObject.calculate()})
-console.log(grid.array[0][1].neighbors)
-grid.array[0][1].cleanNeighbors()
+
