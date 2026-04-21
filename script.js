@@ -23,6 +23,7 @@ const calcButton=document.getElementById("calc")
         this.tableData=tableData
         this.coordinates=coordinates
         this.neighbors=neighbors
+        this.parent=parent
      }
      setColor(hue){
         this.tableData.style.backgroundColor=hue
@@ -172,31 +173,39 @@ const calcButton=document.getElementById("calc")
             while(goalFound==false){
             visited.push(current)
             for(let i=0;i<current.neighbors.length;i++){
-                console.log("neighbor",current.neighbors)
-                console.log("grid",grid.array[current.neighbors[i][0]][current.neighbors[i][1]])
+                //console.log("neighbor",current.neighbors)
+                //console.log("grid",grid.array[current.neighbors[i][0]][current.neighbors[i][1]])
                 let neighborObject=grid.array[current.neighbors[i][0]][current.neighbors[i][1]]
                 if(neighborObject.type=="goal"){
                     console.log("Is goal")
+                    neighborObject.parent=current
+                    var endGoalObj=neighborObject
                     goalFound=true
-                    return
+                    
                 }
                 if(neighborObject in visited){
-                    neighborObject.setColor("magenta")
+                    //neighborObject.setColor("magenta")
 
                 }
                 
                 else {
                     queue.push(neighborObject)
                     visited.push(neighborObject)
+                    neighborObject.parent=current
                     neighborObject.setColor("pink")
                     startObject.setColor("purple")
+                    console.log(neighborObject.parent)
                 }
             }
             
             current=queue.shift()
             //console.log(current)
             //console.log("queue:",queue)
+            
         }
+        endGoalObj.setColor("red")
+        endGoalObj.parent.setColor("blue")
+        
     }
     //
         //access neighbors
