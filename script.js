@@ -44,7 +44,7 @@ const calcButton=document.getElementById("calc")
             //     this.neighbors.splice(i,1)
            
             //console.log(this.neighbors)
-            if (this.neighbors[i][0]<0 || this.neighbors[i][1]<0 ||this.neighbors[i][0]>grid.height || this.neighbors[i][1]>grid.width){
+            if (this.neighbors[i][0]<0 || this.neighbors[i][1]<0 ||this.neighbors[i][0]>grid.height-1 || this.neighbors[i][1]>grid.width-1){
                 //this.neighbors.splice(i,1)
                 removables.push(this.neighbors[i])
             }
@@ -161,25 +161,46 @@ const calcButton=document.getElementById("calc")
                 }   
             }
         //push start to queue
+        let goalFound=false
         queue.push(startObject)
         current=queue.shift()
-        if (current.type=="goal"){
+        if (typeof(startObject)==undefined){
             console.log("Is goal")
             return
         }
         else{
+            while(goalFound==false){
             visited.push(current)
             for(let i=0;i<current.neighbors.length;i++){
+                console.log("neighbor",current.neighbors)
+                console.log("grid",grid.array[current.neighbors[i][0]][current.neighbors[i][1]])
                 let neighborObject=grid.array[current.neighbors[i][0]][current.neighbors[i][1]]
-                queue.push(neighborObject)
-                neighborObject.setColor("pink")
+                if(neighborObject.type=="goal"){
+                    console.log("Is goal")
+                    goalFound=true
+                    return
+                }
+                if(neighborObject in visited){
+                    neighborObject.setColor("magenta")
+
+                }
+                
+                else {
+                    queue.push(neighborObject)
+                    visited.push(neighborObject)
+                    neighborObject.setColor("pink")
+                    startObject.setColor("purple")
+                }
             }
-            console.log("queue:",queue)
+            
+            current=queue.shift()
+            //console.log(current)
+            //console.log("queue:",queue)
         }
     }
-
+    //
         //access neighbors
- }
+ }}
 let bfsObject = new BFS()
     
 let grid= new Grid()
