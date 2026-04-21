@@ -205,7 +205,12 @@ const calcButton=document.getElementById("calc")
         }
         endGoalObj.setColor("red")
         endGoalObj.parent.setColor("blue")
-        
+        //LOOP UNTIL START NODE
+        startFound=false
+        while(startFound==false){
+            
+        }
+
     }
     //
         //access neighbors
