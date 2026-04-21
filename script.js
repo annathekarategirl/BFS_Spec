@@ -49,12 +49,16 @@ const calcButton=document.getElementById("calc")
                 removables.push(this.neighbors[i])
             }
         } 
-         console.log(this.coordinates)
-        console.log("Before:",this.neighbors)
-        console.log("Remove:",removables)
+        //console.log(this.coordinates)
+        //console.log("Before:",this.neighbors)
+        //console.log("Remove:",removables)
        let res = [].concat(this.neighbors.filter(x => !removables.includes(x)));
+    //    this.neighbors=[]
+    //    for(let i=0;i<res.length;i++){
+    //     this.neighbors.push(grid.array[res[i][0]][res[i][1]])
+    //    }
        this.neighbors=res
-        console.log("After:",this.neighbors)
+        //console.log("After:",this.neighbors)
  }}
 
  class Grid{
@@ -142,6 +146,7 @@ const calcButton=document.getElementById("calc")
     calculate(){
         let current
         let queue=[]
+        let visited=[]
         //acccess start and goal object
         for(let i=0;i<grid.array.length;i++){
                 for(let j=0;j<grid.array[i].length;j++){
@@ -158,10 +163,23 @@ const calcButton=document.getElementById("calc")
         //push start to queue
         queue.push(startObject)
         current=queue.shift()
-        
+        if (current.type=="goal"){
+            console.log("Is goal")
+            return
+        }
+        else{
+            visited.push(current)
+            for(let i=0;i<current.neighbors.length;i++){
+                let neighborObject=grid.array[current.neighbors[i][0]][current.neighbors[i][1]]
+                queue.push(neighborObject)
+                neighborObject.setColor("pink")
+            }
+            console.log("queue:",queue)
+        }
+    }
 
         //access neighbors
- }}
+ }
 let bfsObject = new BFS()
     
 let grid= new Grid()
