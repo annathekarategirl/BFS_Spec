@@ -189,6 +189,9 @@ const calcButton=document.getElementById("calc")
                     //neighborObject.setColor("magenta")
 
                 }
+                else if(neighborObject.type=="wall"){
+
+                }
                 
                 else {
                     queue.push(neighborObject)
