@@ -179,6 +179,7 @@ const calcButton=document.getElementById("calc")
                 if(neighborObject.type=="goal"){
                     console.log("Is goal")
                     neighborObject.parent=current
+                    console.log(current)
                     var endGoalObj=neighborObject
                     goalFound=true
                     
@@ -194,21 +195,28 @@ const calcButton=document.getElementById("calc")
                     neighborObject.parent=current
                     neighborObject.setColor("pink")
                     startObject.setColor("purple")
-                    console.log(neighborObject.parent)
+                    console.log("neighparent",neighborObject.parent)
                 }
+                current=queue.shift()
             }
             
-            current=queue.shift()
+            
+            console.log("currnet",current)
             //console.log(current)
             //console.log("queue:",queue)
             
         }
         endGoalObj.setColor("red")
         endGoalObj.parent.setColor("blue")
+        let next=endGoalObj.parent
         //LOOP UNTIL START NODE
-        startFound=false
-        while(startFound==false){
-            
+        //let startFound=false
+        let i=0
+        while(i<20){
+            next=next.parent
+            //console.log("next: ",next,"type: ",next.type,"parent: ",next.parent)
+            next.setColor("blue")
+            i++
         }
 
     }
@@ -225,3 +233,4 @@ startSub.addEventListener("click",() => {grid.startNode()})
 sizeSub.addEventListener("click",() =>{grid.changeSize()})
 calcButton.addEventListener("click",() =>{bfsObject.calculate()})
 
+//problem- assigning parents to nodes links pairs together instead of sequenced
