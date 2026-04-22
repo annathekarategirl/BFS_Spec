@@ -173,6 +173,7 @@ const calcButton=document.getElementById("calc")
             while(goalFound==false){
             visited.push(current)
             for(let i=0;i<current.neighbors.length;i++){
+                console.log(current)
                 //console.log("neighbor",current.neighbors)
                 //console.log("grid",grid.array[current.neighbors[i][0]][current.neighbors[i][1]])
                 let neighborObject=grid.array[current.neighbors[i][0]][current.neighbors[i][1]]
@@ -184,7 +185,7 @@ const calcButton=document.getElementById("calc")
                     goalFound=true
                     
                 }
-                if(neighborObject in visited){
+                if(visited.includes(neighborObject)){
                     //neighborObject.setColor("magenta")
 
                 }
@@ -195,13 +196,13 @@ const calcButton=document.getElementById("calc")
                     neighborObject.parent=current
                     neighborObject.setColor("pink")
                     startObject.setColor("purple")
-                    console.log("neighparent",neighborObject.parent)
+                    //console.log("neighparent",neighborObject.parent)
                 }
-                current=queue.shift()
+                // current=queue.shift()
             }
+            current=queue.shift()
             
-            
-            console.log("currnet",current)
+            //console.log("currnet",current)
             //console.log(current)
             //console.log("queue:",queue)
             
@@ -216,9 +217,12 @@ const calcButton=document.getElementById("calc")
             next=next.parent
             //console.log("next: ",next,"type: ",next.type,"parent: ",next.parent)
             next.setColor("blue")
+            console.log("next",next.coordinates)
+            console.log("p:",next.parent.parent.coordinates)
             i++
+            startObject.setColor("purple")
         }
-
+        
     }
     //
         //access neighbors
