@@ -216,7 +216,7 @@ const calcButton=document.getElementById("calc")
         //LOOP UNTIL START NODE
         //let startFound=false
         let i=0
-        while(i<20){
+        while(next.parent){
             next=next.parent
             //console.log("next: ",next,"type: ",next.type,"parent: ",next.parent)
             next.setColor("blue")
