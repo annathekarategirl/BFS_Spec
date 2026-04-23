@@ -159,6 +159,9 @@ const calcButton=document.getElementById("calc")
                         var goalObject=grid.array[i][j]
                         
                     }
+                    if (grid.array[i][j].tableData.style.backgroundColor=="blue"){
+                        grid.array[i][j].setColor("white")
+                    }
                 }   
             }
         //push start to queue
