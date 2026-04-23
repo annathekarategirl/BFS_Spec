@@ -72,7 +72,9 @@ const BFSradioButton=document.getElementById("radio")
         this.width=width
         this.array=[]
     } 
-    makeGrid(height,width){ //constructs the grid
+
+    //constructs the grid
+    makeGrid(height,width){ 
         var array=[]
         this.height=height
         this.width=width
@@ -117,7 +119,9 @@ const BFSradioButton=document.getElementById("radio")
         return array
         
     }
-    goalNode(){ //sets node as goal
+
+    //sets node as goal
+    goalNode(){ 
         for(let i=0;i<this.array.length;i++){
             for(let j=0;j<this.array[i].length;j++){
                 if (this.array[i][j].type=="goal"){
@@ -128,7 +132,9 @@ const BFSradioButton=document.getElementById("radio")
         }
         this.array[goalY.value][goalX.value].setGoal()
     }
-    startNode(){ //sets node as start
+
+    //sets node as start
+    startNode(){ 
         for(let i=0;i<this.array.length;i++){
             for(let j=0;j<this.array[i].length;j++){
                 if (this.array[i][j].type=="start"){
@@ -146,12 +152,13 @@ const BFSradioButton=document.getElementById("radio")
     }
 }
 
+//does the math of BFS and displays it.
  class BFS extends Algorithm{ 
-    calculate(){ //does the math of BFS and displays it.
+    calculate(){ 
         let current
         let queue=[]
         let visited=[]
-        //acccess start and goal object
+        //acccess start and goal object and resets colors
         for(let i=0;i<grid.array.length;i++){
                 for(let j=0;j<grid.array[i].length;j++){
                     if (grid.array[i][j].type=="start"){
@@ -225,6 +232,7 @@ const BFSradioButton=document.getElementById("radio")
         while(next.parent){
             next=next.parent
             //console.log("next: ",next,"type: ",next.type,"parent: ",next.parent)
+            // if ((typeof next) == "Node"){
             next.setColor("blue")
             //console.log("next",next.coordinates)
             //console.log("p:",next.parent.parent.coordinates)
@@ -233,13 +241,14 @@ const BFSradioButton=document.getElementById("radio")
         }
         
     }
-    //
-        //access neighbors
+   
  }}
 let bfsObject = new BFS()
     
 let grid= new Grid()
 grid.makeGrid(6,8)
+grid.goalNode()
+grid.startNode()
 
 goalSub.addEventListener('click', () => {grid.goalNode()})
 startSub.addEventListener("click",() => {grid.startNode()})
@@ -248,4 +257,3 @@ calcButton.addEventListener("click",() =>{if(BFSradioButton.checked){
     console.log("hiiiii")
     bfsObject.calculate()}})
 
-//problem- assigning parents to nodes links pairs together instead of sequenced
