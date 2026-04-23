@@ -9,14 +9,15 @@ const goalSub=document.getElementById("goalsub")
 const heightInput=document.getElementById("height");
 const widthInput=document.getElementById("width");
 const sizeSub=document.getElementById("sizesub");
-const calcButton=document.getElementById("calc")
+const calcButton=document.getElementById("calc");
+const BFSradioButton=document.getElementById("radio")
 
  class Algorithm{
     //Abstract class
  }
+//Anna Moore April 2026
 
-
-
+//class for each cell of the grid and their properties.
   class Node{
      constructor(type, tableData, coordinates,neighbors){
         this.type=type
@@ -38,7 +39,9 @@ const calcButton=document.getElementById("calc")
         this.type="start"
         this.setColor("purple")
      }
-     cleanNeighbors(){
+     
+     //Function to remove out of bounds coordinates for neighbors
+     cleanNeighbors(){ 
         let removables=[]
         for(let i=0;i<this.neighbors.length;i++){
             // if (this.neighbors[i][0]<0){
@@ -69,7 +72,7 @@ const calcButton=document.getElementById("calc")
         this.width=width
         this.array=[]
     } 
-    makeGrid(height,width){
+    makeGrid(height,width){ //constructs the grid
         var array=[]
         this.height=height
         this.width=width
@@ -114,7 +117,7 @@ const calcButton=document.getElementById("calc")
         return array
         
     }
-    goalNode(){
+    goalNode(){ //sets node as goal
         for(let i=0;i<this.array.length;i++){
             for(let j=0;j<this.array[i].length;j++){
                 if (this.array[i][j].type=="goal"){
@@ -125,7 +128,7 @@ const calcButton=document.getElementById("calc")
         }
         this.array[goalY.value][goalX.value].setGoal()
     }
-    startNode(){
+    startNode(){ //sets node as start
         for(let i=0;i<this.array.length;i++){
             for(let j=0;j<this.array[i].length;j++){
                 if (this.array[i][j].type=="start"){
@@ -143,8 +146,8 @@ const calcButton=document.getElementById("calc")
     }
 }
 
- class BFS extends Algorithm{
-    calculate(){
+ class BFS extends Algorithm{ 
+    calculate(){ //does the math of BFS and displays it.
         let current
         let queue=[]
         let visited=[]
@@ -159,7 +162,7 @@ const calcButton=document.getElementById("calc")
                         var goalObject=grid.array[i][j]
                         
                     }
-                    if (grid.array[i][j].tableData.style.backgroundColor=="blue"){
+                    if (grid.array[i][j].tableData.style.backgroundColor=="blue" || grid.array[i][j].tableData.style.backgroundColor=="pink"){
                         grid.array[i][j].setColor("white")
                     }
                 }   
@@ -176,14 +179,14 @@ const calcButton=document.getElementById("calc")
             while(goalFound==false){
             visited.push(current)
             for(let i=0;i<current.neighbors.length;i++){
-                console.log(current)
+                //console.log(current)
                 //console.log("neighbor",current.neighbors)
                 //console.log("grid",grid.array[current.neighbors[i][0]][current.neighbors[i][1]])
                 let neighborObject=grid.array[current.neighbors[i][0]][current.neighbors[i][1]]
                 if(neighborObject.type=="goal"){
                     console.log("Is goal")
                     neighborObject.parent=current
-                    console.log(current)
+                    //console.log(current)
                     var endGoalObj=neighborObject
                     goalFound=true
                     
@@ -223,8 +226,8 @@ const calcButton=document.getElementById("calc")
             next=next.parent
             //console.log("next: ",next,"type: ",next.type,"parent: ",next.parent)
             next.setColor("blue")
-            console.log("next",next.coordinates)
-            console.log("p:",next.parent.parent.coordinates)
+            //console.log("next",next.coordinates)
+            //console.log("p:",next.parent.parent.coordinates)
             i++
             startObject.setColor("purple")
         }
@@ -241,6 +244,8 @@ grid.makeGrid(6,8)
 goalSub.addEventListener('click', () => {grid.goalNode()})
 startSub.addEventListener("click",() => {grid.startNode()})
 sizeSub.addEventListener("click",() =>{grid.changeSize()})
-calcButton.addEventListener("click",() =>{bfsObject.calculate()})
+calcButton.addEventListener("click",() =>{if(BFSradioButton.checked){
+    console.log("hiiiii")
+    bfsObject.calculate()}})
 
 //problem- assigning parents to nodes links pairs together instead of sequenced
